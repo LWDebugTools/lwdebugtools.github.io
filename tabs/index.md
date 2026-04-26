@@ -1,4 +1,4 @@
-﻿---
+---
 title: Tabs
 ---
 
@@ -8,6 +8,6 @@ Debug Tools uses a shared panel frame. Tabs documented here are available inside
 
 | Tab | Description |
 |-----|-------------|
-| [Console](/tabs/console) | Search commands and build a saved list of one-click console command buttons |
+| [Console](/tabs/console) | Search console commands and `int32` console variables and build a saved list of reusable console widgets |
 
-[← Back to home](/)
+[? Back to home](/)

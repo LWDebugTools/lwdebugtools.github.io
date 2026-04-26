@@ -1,10 +1,10 @@
-﻿---
+---
 title: Debug Tools
 ---
 
 # Debug Tools
 
-Debug Tools is an Unreal Engine editor plugin that adds a dockable **Debug Tools** panel to the **Tools** menu. It gives teams a shared place to build project-specific debug UI while still shipping with useful built-in tooling, starting with a Console command builder.
+Debug Tools is an Unreal Engine editor plugin that adds a dockable **Debug Tools** panel to the **Tools** menu. It gives teams a shared place to build project-specific debug UI while still shipping with useful built-in tooling, starting with a Console widget builder.
 
 ---
 
@@ -30,7 +30,7 @@ A placeholder for walkthrough videos and real project examples.
 
 | Tab | Description |
 |-----|-------------|
-| [Console](/tabs/console) | Search console commands, save them as clickable buttons, and reorder your personal command list |
+| [Console](/tabs/console) | Search console commands and `int32` console variables, save them as widgets, and reorder your personal widget list |
 
 ---
 
@@ -39,6 +39,6 @@ A placeholder for walkthrough videos and real project examples.
 | Topic | Description |
 |-------|-------------|
 | [Root Widget Overrides](/customization/root-widget-overrides) | Replace the built-in root area with your own User Widget Blueprint |
-| [User Data and Persistence](/customization/user-data) | How saved button lists and future user-managed tools persist in the project Saved folder |
+| [User Data and Persistence](/customization/user-data) | How saved widget lists and future user-managed tools persist in the project Saved folder |
 
-[← Back to home](/)
+[? Back to home](/)

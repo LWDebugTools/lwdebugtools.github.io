@@ -1,60 +1,140 @@
-﻿---
+---
 title: Console
 ---
 
 # Console
 
-The Console tab is the first built-in Debug Tools tab. It is designed to turn frequently used console commands into a personal, clickable command board.
+The Console tab is the first built-in Debug Tools tab. It is designed to turn frequently used console commands and `int32` console variables into a personal, saved widget board.
 
 ---
 
-## Search
+## Console Widget Builder
 
-The search field scans all enabled console commands in the running editor session.
+The builder searches two kinds of console objects from the current editor session:
+
+- enabled console commands
+- enabled `int32` console variables
 
 Search behavior:
 
 - Case-insensitive
 - Sloppy matching is allowed
-- Spaces are ignored for matching, so a search such as `a b c` can match a command whose letters appear in order with any number of characters between them
+- Spaces are ignored for matching, so a search such as `a b c` can match a target whose letters appear in order with any number of characters between them
 
 The results list shows:
 
-- The command name
-- The command's help text when available
+- the console object name
+- the help text when available
+- whether the result is a `Console Command` or an `Int32 CVar`
 
----
+To create a saved widget:
 
-## Create saved command buttons
-
-To save a command as a button:
-
-1. Search for the command
+1. Search for a console command or `int32` console variable
 2. Select it from the results list
-3. Click **Create console command button**
+3. Click **Create Widget**
 
-The command is added to the saved button list below the builder area.
+Saved widgets are stored in one mixed ordered list, so command widgets and `int32` console variable widgets can be interleaved freely.
 
 ---
 
-## Run, reorder, and remove buttons
+## Console Command Widgets
 
-Saved buttons support these actions:
+If you create a widget from a console command, Debug Tools creates a saved command widget.
 
-- Click the main button to run the command
-- Click **Up** or **Down** to reorder it
-- Click **Remove** to delete it from your saved list
+Command widgets support:
 
-Duplicate saved buttons for the same command are not added.
+- clicking the main button to run the command
+- dragging by the left handle to reorder
+- opening the gear menu for settings
+- clicking the trash button to remove the widget
+
+Duplicate saved widgets for the same command are not added.
+
+### Command world selection
+
+The gear menu for a command widget lets you choose where the command runs:
+
+- `Editor`
+- `PIE`
+
+If a command widget is set to `PIE`:
+
+- the button shows a subdued `[PIE]` prefix
+- the button is disabled while PIE is not running
+- the button re-enables automatically when PIE starts again
+
+---
+
+## Int32 Console Variable Widgets
+
+If you create a widget from an `int32` console variable, Debug Tools creates a saved `int32` console variable widget.
+
+These widgets support:
+
+- dragging by the left handle to reorder
+- opening the gear menu for settings
+- clicking the trash button to remove the widget
+
+The main control uses Unreal's numeric slider style:
+
+- the console variable name appears on the left
+- the numeric slider fills the remaining width on the right and keeps a minimum width
+- you can drag left and right on the control
+- you can also type a number directly into the value field
+- changes update the live console variable immediately
+
+If the underlying console variable is missing or is no longer an `int32` variable, the widget disables itself instead of being removed automatically.
+
+---
+
+## Int32 Widget Range Settings
+
+The gear menu for an `int32` console variable widget lets you configure:
+
+- `Min`
+- `Max`
+
+These values are saved with the widget.
+
+If `Min > Max`, Debug Tools normalizes the range by swapping them before saving.
+
+The slider write path clamps outgoing values into the saved range. The live console variable itself is not forcibly rewritten just because it currently sits outside the saved range.
+
+### Default range on creation
+
+When a new `int32` console variable widget is created:
+
+- default range is `0` to `1000`
+- if the live value is below `0`, range becomes `2 * value` to `0`
+- if the live value is above `1000`, range becomes `0` to `2 * value`
+
+---
+
+## First-Run Default Widget
+
+If Debug Tools does not find an existing user save file yet, it seeds the saved console widget list with:
+
+- `debugtools.ExtraAsyncDelayMS`
+
+This only happens on first run when there is no existing Debug Tools save file. Existing save files are left unchanged.
 
 ---
 
 ## Persistence
 
-Saved Console buttons are stored automatically. There is no Save button.
+Saved console widgets are stored automatically. There is no Save button.
 
-Your button list is restored when you reopen the panel or restart the editor. Saved data lives in the project's `Saved/DebugTools/DebugToolsUserData.json` file.
+Debug Tools persists:
+
+- widget type
+- widget order
+- command world policy
+- `int32` widget min/max range
+
+For `int32` widgets, the display name and help text are always read live from the current console object instead of being stored redundantly in saved data.
+
+Your saved widget list is restored when you reopen the panel or restart the editor. Saved data lives in the project's `Saved/DebugTools/DebugToolsUserData.json` file.
 
 See [User Data and Persistence](/customization/user-data) for more detail.
 
-[← Back to tabs](/tabs)
+[? Back to tabs](/tabs)
